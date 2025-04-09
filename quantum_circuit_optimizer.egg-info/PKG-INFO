@@ -1,0 +1,135 @@
+Metadata-Version: 2.4
+Name: quantum_circuit_optimizer
+Version: 0.1.0
+Summary: A quantum circuit optimizer using reinforcement learning
+Author: Debasis
+Author-email: example@example.com
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: qiskit>=0.45.0
+Requires-Dist: qiskit-aer>=0.12.0
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: gymnasium>=0.28.1
+Requires-Dist: torch>=2.0.0
+Requires-Dist: networkx>=3.0
+Requires-Dist: pandas>=1.5.0
+Requires-Dist: tqdm>=4.65.0
+Requires-Dist: plotly>=5.13.0
+Requires-Dist: stable-baselines3>=2.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-python
+
+# Quantum Circuit Optimizer with Reinforcement Learning
+
+This project implements a reinforcement learning-based quantum circuit optimizer that balances circuit depth, execution cost, and error rates. The optimizer is designed to work with IBM Quantum computers and uses real gate cost and error rate data to optimize quantum circuits.
+
+## Features
+
+- Quantum circuit optimization using reinforcement learning
+- Consideration of circuit depth, gate costs, and error rates
+- Integration with IBM Quantum hardware specifications
+- Visualization tools for optimized circuits
+- Benchmarking against standard optimization techniques
+
+## Installation
+
+1. Clone this repository:
+```bash
+git clone https://github.com/yourusername/quantum_circuit_optimizer.git
+cd quantum_circuit_optimizer
+```
+
+2. Create a virtual environment and install dependencies:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+3. Install the package in development mode:
+```bash
+pip install -e .
+```
+
+## Project Structure
+
+- `environment/`: RL environment implementation
+- `agent/`: RL agent implementation
+- `quantum_circuit/`: Circuit representation and operations
+- `cost_database/`: Gate costs and error rates
+- `evaluation/`: Evaluation and benchmarking tools
+- `examples/`: Example scripts demonstrating usage
+- `utils/`: Utility functions
+
+## Usage
+
+### Simple Optimization Approach
+
+For a quick demonstration of quantum circuit optimization without the full RL framework, use the `simple_optimize.py` script:
+
+```bash
+python simple_optimize.py
+```
+
+This script:
+- Creates a QFT circuit and a random circuit
+- Optimizes them using Qiskit's transpiler
+- Calculates metrics for both original and optimized circuits
+- Visualizes the optimization results
+
+### Full RL-based Optimization
+
+For the complete RL-based optimization approach:
+
+```python
+from quantum_circuit_optimizer import CircuitOptimizer
+
+# Create an optimizer
+optimizer = CircuitOptimizer()
+
+# Load a quantum circuit
+circuit = load_circuit("my_circuit.qasm")
+
+# Optimize the circuit
+optimized_circuit = optimizer.optimize(circuit)
+
+# Evaluate the optimized circuit
+results = optimizer.evaluate(optimized_circuit)
+```
+
+### Running Examples
+
+To run the example scripts, use:
+
+```bash
+python run_example.py examples/optimize_circuit.py
+```
+
+Or use the direct optimization script:
+
+```bash
+python direct_optimize.py
+```
+
+## Troubleshooting
+
+If you encounter import errors:
+
+1. Make sure you've installed the package in development mode:
+```bash
+pip install -e .
+```
+
+2. Try using the simplified optimization approach with `simple_optimize.py`
+
+3. Check that all required dependencies are installed:
+```bash
+pip install qiskit numpy matplotlib networkx pandas torch
+```
+
+## License
+
+MIT
