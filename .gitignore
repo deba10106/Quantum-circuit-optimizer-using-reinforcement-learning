@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+.idea_modules/
+
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs/
+
+# Model checkpoints and saved models
+checkpoints/
+saved_models/
+*.pt
+*.pth
+*.h5
+*.ckpt
+
+# Results and visualizations
+results/
+plots/
+comprehensive_results/
+final_results/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# Data
+data/
+datasets/
+*.csv
+*.json
+*.npy
+*.npz
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+.~lock.*
+
+# Quantum circuit specific
+*.qasm
+*.qpy
+
+# Specific to this project
+# Add any project-specific files or directories to ignore

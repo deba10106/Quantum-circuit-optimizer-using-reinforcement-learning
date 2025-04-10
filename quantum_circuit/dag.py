@@ -50,14 +50,17 @@ class CircuitDAG:
         return self._graph
     
     def _to_networkx(self):
-        """Convert the Qiskit DAGCircuit to a NetworkX graph."""
+        """Convert the DAG to a NetworkX graph."""
+        import networkx as nx
+        
         G = nx.DiGraph()
         
         # Add nodes
-        for node in self.dag.topological_op_nodes():
+        for node in self.dag.op_nodes():
+            # In newer Qiskit versions, we need to check the node type differently
             node_attrs = {
-                'gate_type': node.name,
-                'num_qubits': len(node.qargs),
+                'name': node.name,
+                'gate_name': node.op.name,
                 'qubits': [q.index for q in node.qargs],
                 'params': [float(p) for p in node.op.params] if hasattr(node.op, 'params') else []
             }
@@ -66,7 +69,8 @@ class CircuitDAG:
         # Add edges
         for node in self.dag.topological_op_nodes():
             for successor in self.dag.successors(node):
-                if successor.type == 'op':
+                # Check if successor is an operation node (not input/output)
+                if hasattr(successor, 'op'):
                     G.add_edge(node._node_id, successor._node_id)
                     
         return G
@@ -109,14 +113,14 @@ class CircuitDAG:
         
         for i, (_, data) in enumerate(nodes):
             # One-hot encoding of gate type
-            gate_type = data['gate_type']
+            gate_type = data['gate_name']
             gate_idx = gate_types.get(gate_type, 0)
             if gate_idx < feature_dim:
                 features[i, gate_idx] = 1.0
                 
             # Number of qubits (normalized)
-            if 'num_qubits' in data and feature_dim > len(gate_types):
-                features[i, len(gate_types)] = data['num_qubits'] / 5.0  # Normalize by typical max qubits
+            if 'qubits' in data and feature_dim > len(gate_types):
+                features[i, len(gate_types)] = len(data['qubits']) / 5.0  # Normalize by typical max qubits
                 
             # Additional features can be added here
                 
@@ -182,7 +186,7 @@ class CircuitDAG:
         
         node_colors = []
         for _, data in self.graph.nodes(data=True):
-            gate_type = data['gate_type']
+            gate_type = data['gate_name']
             node_colors.append(gate_colors.get(gate_type, 'gray'))
             
         nx.draw(self.graph, pos, with_labels=True, node_color=node_colors, 

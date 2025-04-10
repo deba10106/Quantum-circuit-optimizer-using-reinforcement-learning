@@ -162,34 +162,30 @@ class CircuitState:
         
         return node_features, edge_indices, adjacency_matrix
     
-    def is_equivalent_to(self, other_state, num_shots=1024):
+    def is_equivalent_to(self, other_state, epsilon=1e-10):
         """
         Check if this circuit state is equivalent to another circuit state.
         
         Args:
-            other_state (CircuitState): The other circuit state to compare to.
-            num_shots (int): Number of shots for the simulation.
+            other_state (CircuitState): The other circuit state to compare with.
+            epsilon (float): Tolerance for equivalence check.
             
         Returns:
             bool: True if the circuits are equivalent, False otherwise.
         """
-        from qiskit import Aer, execute
-        
-        # Create a simulator
-        simulator = Aer.get_backend('qasm_simulator')
-        
-        # Execute both circuits
-        result1 = execute(self.qiskit_circuit, simulator, shots=num_shots).result()
-        result2 = execute(other_state.qiskit_circuit, simulator, shots=num_shots).result()
-        
-        # Get the counts
-        counts1 = result1.get_counts(self.qiskit_circuit)
-        counts2 = result2.get_counts(other_state.qiskit_circuit)
-        
-        # Compare the counts
-        # For exact equivalence, the counts should be identical
-        # For approximate equivalence, we could use a distance measure
-        return counts1 == counts2
+        try:
+            from qiskit.quantum_info import Operator
+            
+            # Create operators for both circuits
+            op1 = Operator(self.qiskit_circuit)
+            op2 = Operator(other_state.qiskit_circuit)
+            
+            # Check if they're equivalent
+            return op1.equiv(op2, epsilon)
+        except Exception as e:
+            # If there's an error (e.g., different dimensions), they're not equivalent
+            print(f"Error in equivalence check: {e}")
+            return False
     
     def copy(self):
         """

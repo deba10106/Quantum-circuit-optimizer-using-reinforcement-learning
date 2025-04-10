@@ -17,7 +17,7 @@ from qiskit.circuit.library import (
     CZGate, SwapGate, CCXGate, U1Gate, U2Gate, U3Gate
 )
 
-from quantum_circuit_optimizer.evaluation.metrics import CircuitMetrics
+from .metrics import CircuitMetrics
 
 class CircuitBenchmarks:
     """
