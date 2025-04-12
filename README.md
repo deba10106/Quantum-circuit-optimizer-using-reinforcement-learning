@@ -12,7 +12,7 @@ This project implements a reinforcement learning-based quantum circuit optimizer
 
 ## Installation
 
-Clone the latest version (v0.0.1)
+Clone the latest version (master is the first/oldest commit)
 
 1. Clone this repository:
 ```bash
