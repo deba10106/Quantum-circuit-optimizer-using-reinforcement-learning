@@ -12,6 +12,8 @@ This project implements a reinforcement learning-based quantum circuit optimizer
 
 ## Installation
 
+Clone the latest version (v0.0.1)
+
 1. Clone this repository:
 ```bash
 git clone https://github.com/yourusername/quantum_circuit_optimizer.git
