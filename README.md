@@ -25,7 +25,7 @@ This project provides multiple optimization approaches:
 - **Circuit representation as directed acyclic graphs (DAGs)**
 - **Rule-based optimization techniques for redundant gate elimination**
 
-## Installation
+## Installation 
 
 1. Clone this repository:
 ```bash
